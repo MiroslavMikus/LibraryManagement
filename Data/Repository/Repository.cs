@@ -1,4 +1,5 @@
 ﻿using LibraryManagement.Data.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LibraryManagement.Data.Repository
 {
-    public class Repository<T> : IRepository<T> where T : class
+    public abstract class Repository<T> : IRepository<T> where T : class
     {
 
         protected readonly LibraryDbContext _context;
@@ -42,7 +43,9 @@ namespace LibraryManagement.Data.Repository
 
         public void Update(T entity)
         {
-            throw new NotImplementedException();
+            _context.Entry(entity).State = EntityState.Modified;
+
+            Save();
         }
     }
 }
