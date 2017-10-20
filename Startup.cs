@@ -32,9 +32,10 @@ namespace LibraryManagement
                 .AddEntityFrameworkStores<LibraryDbContext>();
 
             services.AddTransient<IAuthorRepository, AuthorRepository>();
-            services.AddTransient<IBookRepository, BookRepository>();
-            services.AddTransient<ICustomerRepository, CustomerRepository>();
 
+            services.AddTransient<IBookRepository, BookRepository>();
+
+            services.AddTransient<ICustomerRepository, CustomerRepository>();
 
             services.AddMvc();
 
