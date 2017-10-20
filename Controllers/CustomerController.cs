@@ -19,10 +19,32 @@ namespace LibraryManagement.Controllers
             _repository = repository;
         }
 
-        public IActionResult Index()
+        public IActionResult List()
         {
             var customers = _repository.GetAll();
             return View(customers);
+        }
+
+        public IActionResult Detail(int id)
+        {
+            Customer customer = _repository.GetById(id);
+
+            if (customer == null)
+            {
+                ModelState.AddModelError("", "Customer doesnt exist");
+                return List();
+            }
+            return View(customer);
+        }
+
+        [HttpPost]
+        public IActionResult Update(Customer customer)
+        {
+            _repository.Update(customer);
+
+            var customers = _repository.GetAll();
+
+            return View("List", customers);
         }
     }
 }
