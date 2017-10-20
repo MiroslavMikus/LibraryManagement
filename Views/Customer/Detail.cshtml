@@ -1,0 +1,21 @@
+﻿@model Customer
+<div class="row orderForm">
+    <h3>Edit customer @Model.Name</h3>
+
+    <form asp-controller="Customer" asp-action="Update" method="post" class="form-horizontal" role="form">
+        @Html.HiddenFor(m => Model.CustomerId)
+        <div class="form-group">
+            <label asp-for="Name" class="col-md-2 control-label"></label>
+            <div class="col-md-5">
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="btn-group col-md-offset-2 col-md-8">
+                <input class="btn btn-default" type="submit" value="Return" />
+                <input class="btn btn-success" type="submit" value="Update" />
+            </div>
+        </div>
+    </form>
+</div>

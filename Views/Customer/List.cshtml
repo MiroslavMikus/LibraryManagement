@@ -1,0 +1,8 @@
+﻿@model IEnumerable<Customer>
+
+<ul>
+    @foreach(Customer customer in Model)
+    {
+        <li>@customer.Name <a asp-area="" asp-controller="Customer" asp-action="Detail" asp-route-id="@customer.CustomerId">Show Detail</a></li>
+    }
+</ul>
