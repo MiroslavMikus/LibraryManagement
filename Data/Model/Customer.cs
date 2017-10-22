@@ -11,7 +11,7 @@ namespace LibraryManagement.Data.Model
         public int CustomerId { get; set; }
         [Required]
         [MinLength(3)]
-        [MaxLength(20)]
+        [MaxLength(50)]
         public string Name { get; set; }
     }
 }

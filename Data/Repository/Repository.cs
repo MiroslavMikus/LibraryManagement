@@ -47,5 +47,15 @@ namespace LibraryManagement.Data.Repository
 
             Save();
         }
+
+        public IEnumerable<T> Find(Func<T,bool> predicate)
+        {
+            return _context.Set<T>().Where(predicate);
+        }
+
+        public int Count(Func<T, Boolean> predicate)
+        {
+            return _context.Set<T>().Count();
+        }
     }
 }

@@ -8,5 +8,9 @@ namespace LibraryManagement.Data.Interfaces
 {
     public interface IBookRepository : IRepository<Book>
     {
+        IEnumerable<Book> GetAllWithAuthor();
+        IEnumerable<Book> FindWithAuthor(Func<Book, bool> predicate);
+
+        IEnumerable<Book> FindWithAuthorAndLender(Func<Book, bool> predicate);
     }
 }
