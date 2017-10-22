@@ -5,33 +5,34 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using LibraryManagement.Models;
+using LibraryManagement.Data.Interfaces;
+using LibraryManagement.ViewModels;
 
 namespace LibraryManagement.Controllers
 {
     public class HomeController : Controller
     {
+
+        private readonly IBookRepository _bookRepository;
+        private readonly IAuthorRepository _authorRepository;
+        private readonly ICustomerRepository _customerRepository;
+
+        public HomeController(IBookRepository bookRepository, IAuthorRepository authorRepository, ICustomerRepository customerRepository)
+        {
+            _bookRepository = bookRepository;
+            _authorRepository = authorRepository;
+            _customerRepository = customerRepository;
+        }
         public IActionResult Index()
         {
-            return View();
-        }
-
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
-
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            var homeVM = new HomeViewModel
+            {
+                CustomersCount = _customerRepository.Count(x => true),
+                AuthorsCount = _authorRepository.Count(x => true),
+                BooksCount = _bookRepository.Count(c => true),
+                LendedBooksCount = _bookRepository.FindWithAuthorAndLender(x => x.BorrowerId != 0).Count()
+            };
+            return View(homeVM);
         }
     }
 }
