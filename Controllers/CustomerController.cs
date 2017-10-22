@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using LibraryManagement.Data.Interfaces;
 using LibraryManagement.Data.Model;
+using LibraryManagement.ViewModels;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -13,38 +14,87 @@ namespace LibraryManagement.Controllers
     public class CustomerController : Controller
     {
         private readonly ICustomerRepository _repository;
+        private readonly IBookRepository _bookRepository;
 
-        public CustomerController(ICustomerRepository repository)
+        public CustomerController(ICustomerRepository repository, IBookRepository bookRepository)
         {
             _repository = repository;
+            _bookRepository = bookRepository;
         }
 
+        [Route("Customer")]
         public IActionResult List()
         {
+            List<CustomerViewModel> customerVM = new List<CustomerViewModel>();
+
             var customers = _repository.GetAll();
-            return View(customers);
+
+            if(customers.ToList().Count == 0)
+            {
+                return View("Empty");
+            }
+
+            foreach (var customer in customers)
+            {
+                customerVM.Add(new CustomerViewModel
+                {
+                    Customer = customer,
+                    BookCount = _bookRepository.Find(x => x.BorrowerId == customer.CustomerId).Count()
+                });
+            }
+
+            return View(customerVM);
         }
 
-        public IActionResult Detail(int id)
+        public IActionResult Update(int id)
         {
             Customer customer = _repository.GetById(id);
 
             if (customer == null)
             {
-                ModelState.AddModelError("", "Customer doesnt exist");
-                return List();
+                return NotFound();
             }
+
             return View(customer);
         }
 
         [HttpPost]
         public IActionResult Update(Customer customer)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(customer);
+            }
             _repository.Update(customer);
 
-            var customers = _repository.GetAll();
+            return RedirectToAction("List");
+        }
 
-            return View("List", customers);
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(Customer customer)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(customer);
+            }
+
+            _repository.Create(customer);
+
+            return RedirectToAction("List");
+        }
+
+        public IActionResult Delete(int id)
+        {
+            var customer = _repository.GetById(id);
+
+            _repository.Delete(customer);
+
+            return RedirectToAction("List");
         }
     }
 }

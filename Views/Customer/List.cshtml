@@ -1,8 +1,37 @@
-﻿@model IEnumerable<Customer>
+﻿@model IEnumerable<CustomerViewModel>
 
-<ul>
-    @foreach(Customer customer in Model)
-    {
-        <li>@customer.Name <a asp-area="" asp-controller="Customer" asp-action="Detail" asp-route-id="@customer.CustomerId">Show Detail</a></li>
-    }
-</ul>
+
+<a class="btn btn-success mt-5" style="margin: 10px" asp-controller="Customer" asp-action="Create">Create new customer</a>
+
+<table class="table table-striped table-hover ">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Borrowed books</th>
+            <th>Show Books</th>
+            <th>Edit customer</th>
+            <th>Delete customer</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var customerVM in Model)
+        {
+            <tr>
+                <td>@customerVM.Customer.CustomerId</td>
+                <td>@customerVM.Customer.Name</td>
+                <td>@customerVM.BookCount</td>
+                @if (customerVM.BookCount == 0)
+                {
+                    <td><a class="btn btn-default" asp-area="">Show</a></td>
+                }
+                else
+                {
+                    <td><a class="btn btn-info" asp-area="" asp-controller="Book" asp-action="List" asp-route-borrowerId="@customerVM.Customer.CustomerId">Show</a></td>
+                }
+                <td><a class="btn btn-info" asp-area="" asp-controller="Customer" asp-action="Update" asp-route-borrowerId="@customerVM.Customer.CustomerId">Edit</a></td>
+                <td><a class="btn btn-danger" asp-area="" asp-controller="Customer" asp-action="Delete" asp-route-id="@customerVM.Customer.CustomerId">Delete</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
