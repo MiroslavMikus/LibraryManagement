@@ -22,7 +22,7 @@ namespace LibraryManagement.Controllers
 
         public IActionResult List()
         {
-            var lendedBooks = _bookRepository.FindWithAuthorAndLender(x => x.BorrowerId != 0);
+            var lendedBooks = _bookRepository.FindWithAuthorAndBorrower(x => x.BorrowerId != 0);
 
             if (lendedBooks == null || lendedBooks.ToList().Count() == 0)
             {

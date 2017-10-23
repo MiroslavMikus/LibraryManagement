@@ -65,7 +65,6 @@ namespace LibraryManagement
             });
 
             DbInitializer.Seed(app).Wait();
-
         }
     }
 }

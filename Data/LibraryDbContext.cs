@@ -27,6 +27,9 @@ namespace LibraryManagement.Data
                 .WithMany()
                 .HasForeignKey(a => a.BorrowerId);
 
+            // https://github.com/aspnet/EntityFrameworkCore/issues/3924
+            // EF Core 2 doesnt support Cascade on delete for in Memory Database
+
             base.OnModelCreating(builder);
         }
     }

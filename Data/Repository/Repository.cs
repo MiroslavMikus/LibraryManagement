@@ -15,7 +15,7 @@ namespace LibraryManagement.Data.Repository
         {
             _context = context;
         }
-        private void Save() => _context.SaveChanges();
+        protected void Save() => _context.SaveChanges();
 
         public void Create(T entity)
         {
@@ -24,7 +24,7 @@ namespace LibraryManagement.Data.Repository
             Save();
         }
 
-        public void Delete(T entity)
+        public virtual void Delete(T entity)
         {
             _context.Remove(entity);
 

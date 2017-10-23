@@ -18,7 +18,7 @@ namespace LibraryManagement.Data.Repository
                 .Where(predicate);
         }
 
-        public IEnumerable<Book> FindWithAuthorAndLender(Func<Book, bool> predicate)
+        public IEnumerable<Book> FindWithAuthorAndBorrower(Func<Book, bool> predicate)
         {
             return _context.Books
                 .Include(a => a.Author)

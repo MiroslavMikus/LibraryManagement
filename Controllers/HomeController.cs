@@ -29,9 +29,10 @@ namespace LibraryManagement.Controllers
             {
                 CustomersCount = _customerRepository.Count(x => true),
                 AuthorsCount = _authorRepository.Count(x => true),
-                BooksCount = _bookRepository.Count(c => true),
-                LendedBooksCount = _bookRepository.FindWithAuthorAndLender(x => x.BorrowerId != 0).Count()
+                BooksCount = _bookRepository.Count(x => true),
+                LendedBooksCount = _bookRepository.FindWithAuthorAndBorrower(x => x.Borrower != null).Count()
             };
+
             return View(homeVM);
         }
     }

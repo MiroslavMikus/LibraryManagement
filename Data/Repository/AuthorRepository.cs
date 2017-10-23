@@ -21,5 +21,19 @@ namespace LibraryManagement.Data.Repository
         {
             return _context.Authors.Where(a => a.AuthorId == id).Include(a => a.Books).FirstOrDefault();
         }
+
+        public override void Delete(Author entity)
+        {
+            // https://github.com/aspnet/EntityFrameworkCore/issues/3924
+            // EF Core 2 doesnt support Cascade on delete for in Memory Database
+
+            var booksToRemove = _context.Books.Where(b => b.Author == entity);
+
+            base.Delete(entity);
+
+            _context.Books.RemoveRange(booksToRemove);
+
+            Save();
+        }
     }
 }

@@ -24,13 +24,16 @@ namespace LibraryManagement.Controllers
         [Route("Book")]
         public IActionResult List(int? authorId, int? borrowerId)
         {
+
+            var book = _repository.GetAllWithAuthor().ToList();
+
             IEnumerable<Book> books;
 
             ViewBag.AuthorId = authorId;
 
             if(borrowerId != null)
             {
-                books = _repository.FindWithAuthorAndLender(x => x.BorrowerId == borrowerId);
+                books = _repository.FindWithAuthorAndBorrower(x => x.BorrowerId == borrowerId);
                 return CheckBooksCount(books);
             }
 
