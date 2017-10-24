@@ -29,7 +29,7 @@
                 {
                     <td><a class="btn btn-info" asp-area="" asp-controller="Book" asp-action="List" asp-route-borrowerId="@customerVM.Customer.CustomerId">Show</a></td>
                 }
-                <td><a class="btn btn-info" asp-area="" asp-controller="Customer" asp-action="Update" asp-route-borrowerId="@customerVM.Customer.CustomerId">Edit</a></td>
+                <td><a class="btn btn-info" asp-area="" asp-controller="Customer" asp-action="Update" asp-route-id="@customerVM.Customer.CustomerId">Edit</a></td>
                 <td><a class="btn btn-danger" asp-area="" asp-controller="Customer" asp-action="Delete" asp-route-id="@customerVM.Customer.CustomerId">Delete</a></td>
             </tr>
         }

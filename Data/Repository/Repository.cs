@@ -33,7 +33,7 @@ namespace LibraryManagement.Data.Repository
 
         public IEnumerable<T> GetAll()
         {
-            return _context.Set<T>().ToList();
+            return _context.Set<T>();
         }
 
         public T GetById(int id)
@@ -48,14 +48,14 @@ namespace LibraryManagement.Data.Repository
             Save();
         }
 
-        public IEnumerable<T> Find(Func<T,bool> predicate)
+        public IEnumerable<T> Find(Func<T, bool> predicate)
         {
             return _context.Set<T>().Where(predicate);
         }
 
         public int Count(Func<T, Boolean> predicate)
         {
-            return _context.Set<T>().Count();
+            return _context.Set<T>().Where(predicate).Count();
         }
     }
 }
