@@ -68,6 +68,7 @@ namespace LibraryManagement.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Update(Author author)
         {
             if (!ModelState.IsValid)
@@ -81,18 +82,24 @@ namespace LibraryManagement.Controllers
 
         public ViewResult Create()
         {
-            return View();
+            return View(new CreateAuthorViewModel {  Referer = Request.Headers["Referer"].ToString() });
         }
 
         [HttpPost]
-        public IActionResult Create(Author customer)
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(CreateAuthorViewModel authorVM)
         {
             if (!ModelState.IsValid)
             {
-                return View(customer);
+                return View(authorVM);
             }
 
-            _repository.Create(customer);
+            _repository.Create(authorVM.Author);
+
+            if (!String.IsNullOrEmpty(authorVM.Referer))
+            {
+                return Redirect(authorVM.Referer);
+            }
 
             return RedirectToAction("List");
         }
