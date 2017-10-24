@@ -86,6 +86,7 @@ namespace LibraryManagement.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Update(BookEditViewModel bookVM)
         {
             if (!ModelState.IsValid)
@@ -98,17 +99,26 @@ namespace LibraryManagement.Controllers
             return RedirectToAction("List");
         }
 
-        public IActionResult Create()
+        public IActionResult Create(int? authorId)
         {
+            Book book = new Book();
+
+            if(authorId != null)
+            {
+                book.AuthorId = (int)authorId;
+            }
+
             var bookVM = new BookEditViewModel
             {
-                Authors = _authorRepository.GetAll()
+                Authors = _authorRepository.GetAll(),
+                Book = book
             };
 
             return View(bookVM);
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Create(BookEditViewModel bookVM)
         {
             if (!ModelState.IsValid)

@@ -40,6 +40,7 @@ namespace LibraryManagement.Controllers
                 {
                     Customer = customer,
                     BookCount = _bookRepository.Find(x => x.BorrowerId == customer.CustomerId).Count()
+
                 });
             }
 
@@ -59,6 +60,7 @@ namespace LibraryManagement.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Update(Customer customer)
         {
             if (!ModelState.IsValid)
@@ -76,6 +78,7 @@ namespace LibraryManagement.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Create(Customer customer)
         {
             if (!ModelState.IsValid)

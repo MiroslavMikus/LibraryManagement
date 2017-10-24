@@ -45,6 +45,7 @@ namespace LibraryManagement.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult LendBook(LendViewModel lendVM)
         {
             var book = _bookRepository.GetById(lendVM.Book.BookId);
