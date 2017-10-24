@@ -28,8 +28,9 @@ namespace LibraryManagement
         {
             services.AddDbContext<LibraryDbContext>(options => options.UseInMemoryDatabase("LibraryManagement"));
 
-            services.AddIdentity<IdentityUser, IdentityRole>()
-                .AddEntityFrameworkStores<LibraryDbContext>();
+            services.AddDbContext<IdentityDbContext>(options => options.UseInMemoryDatabase("LibraryManagement"));
+
+            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<IdentityDbContext>();
 
             services.AddTransient<IAuthorRepository, AuthorRepository>();
 
