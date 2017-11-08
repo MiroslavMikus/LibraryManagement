@@ -9,12 +9,12 @@ using LibraryManagement.Data.Interfaces;
 
 namespace LibraryManagement.Controllers
 {
-    public class GiveBackController : Controller
+    public class ReturnController : Controller
     {
         private readonly IBookRepository _bookRepository;
         private readonly ICustomerRepository _customerRepository;
 
-        public GiveBackController(IBookRepository bookRepository, ICustomerRepository customerRepository)
+        public ReturnController(IBookRepository bookRepository, ICustomerRepository customerRepository)
         {
             _bookRepository = bookRepository;
             _customerRepository = customerRepository;
@@ -32,7 +32,7 @@ namespace LibraryManagement.Controllers
             return View(lendedBooks);
         }
 
-        public IActionResult GiveBack(int bookId)
+        public IActionResult ReturnABook(int bookId)
         {
             var book = _bookRepository.GetById(bookId);
 

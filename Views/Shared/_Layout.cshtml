@@ -34,7 +34,7 @@
                     <li><a asp-area="" asp-controller="Author" asp-action="List">Authors</a></li>
                     <li><a asp-area="" asp-controller="Book" asp-action="List">Books</a></li>
                     <li><a asp-area="" asp-controller="Lend" asp-action="List">Lend a book</a></li>
-                    <li><a asp-area="" asp-controller="GiveBack" asp-action="List">Give Back</a></li>
+                    <li><a asp-area="" asp-controller="Return" asp-action="List">Return back</a></li>
                 </ul>
             </div>
         </div>
@@ -43,7 +43,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; 2017 - LibraryManagement</p>
+            <p>&copy; @DateTime.Now.Year - Library Management by Miroslav Mikus</p>
         </footer>
     </div>
 

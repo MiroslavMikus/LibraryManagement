@@ -22,12 +22,15 @@ namespace LibraryManagement.Data
             await userManager.CreateAsync(user, "%Miro1");
 
             // Add Customers
-            var customerEtr = new Customer { Name = "Ervis Trupja" };
+            var justin = new Customer { Name = "Justin Noon" };
 
-            var customerLwe = new Customer { Name = "Ludwig Weisssteiner" };
+            var willie = new Customer { Name = "Willie Parodi" };
 
-            context.Customers.Add(customerEtr);
-            context.Customers.Add(customerLwe);
+            var leoma = new Customer { Name = "Leoma  Gosse" };
+
+            context.Customers.Add(justin);
+            context.Customers.Add(willie);
+            context.Customers.Add(leoma);
 
             // Add Author
             var authorDeMarco = new Author

@@ -7,7 +7,7 @@
             <th>Name</th>
             <th>Authors name</th>
             <th>Borrower Name</th>
-            <th>Give back</th>
+            <th>Return</th>
         </tr>
     </thead>
     <tbody>
@@ -18,7 +18,7 @@
                 <td>@book.Title</td>
                 <td>@book.Author.Name</td>
                 <td>@book.Borrower.Name</td>
-                <td><a class="btn btn-success" asp-area="" asp-controller="GiveBack" asp-action="GiveBack" asp-route-bookId="@book.BookId">Give Back</a></td>
+                <td><a class="btn btn-success" asp-area="" asp-controller="Return" asp-action="ReturnABook" asp-route-bookId="@book.BookId">Return</a></td>
             </tr>
         }
     </tbody>
