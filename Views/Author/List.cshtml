@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AuthorViewModel>
+﻿@model IEnumerable<Author>
 
 <a class="btn btn-success mt-5" style="margin: 10px" asp-controller="Author" asp-action="Create">Create new author</a>
 
@@ -14,22 +14,22 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var authorVM in Model)
+        @foreach (var author in Model)
         {
             <tr>
-                <td>@authorVM.Author.AuthorId</td>
-                <td>@authorVM.Author.Name</td>
-                <td>@authorVM.BookCount</td>
-                @if (authorVM.BookCount == 0)
+                <td>@author.AuthorId</td>
+                <td>@author.Name</td>
+                <td>@author.Books?.Count </td>
+                @if (author.Books?.Count == 0)
                 {
                     <td><a class="btn btn-default" asp-area="" >View book list</a></td>
                 }
                 else
                 {
-                    <td><a class="btn btn-info" asp-area="" asp-controller="Book" asp-action="List" asp-route-authorId="@authorVM.Author.AuthorId">View book list</a></td>
+                    <td><a class="btn btn-info" asp-area="" asp-controller="Book" asp-action="List" asp-route-authorId="@author.AuthorId">View book list</a></td>
                 }
-                <td><a class="btn btn-info" asp-area="" asp-controller="Author" asp-action="Update" asp-route-id="@authorVM.Author.AuthorId">Edit</a></td>
-                <td><a class="btn btn-danger" asp-area="" asp-controller="Author" asp-action="Delete" asp-route-id="@authorVM.Author.AuthorId">Delete</a></td>
+                <td><a class="btn btn-info" asp-area="" asp-controller="Author" asp-action="Update" asp-route-id="@author.AuthorId">Edit</a></td>
+                <td><a class="btn btn-danger" asp-area="" asp-controller="Author" asp-action="Delete" asp-route-id="@author.AuthorId">Delete</a></td>
             </tr>
         }
     </tbody>

@@ -29,18 +29,7 @@ namespace LibraryManagement.Controllers
                 return View("Empty");
             }
 
-            var authorsVM = new List<AuthorViewModel>();
-
-            foreach (var author in authors)
-            {
-                authorsVM.Add(new AuthorViewModel
-                {
-                    Author = author,
-                    BookCount = author.Books?.Count
-                });
-            }
-
-            return View(authorsVM);
+            return View(authors);
         }
 
         public IActionResult AuthorDetail()
@@ -52,18 +41,7 @@ namespace LibraryManagement.Controllers
                 return View("Empty");
             }
 
-            var authorsVM = new List<AuthorViewModel>();
-
-            foreach (var author in authors)
-            {
-                authorsVM.Add(new AuthorViewModel
-                {
-                    Author = author,
-                    BookCount = author.Books?.Count
-                });
-            }
-
-            return View(authorsVM);
+            return View(authors);
         }
 
         public IActionResult Detail(int id)
