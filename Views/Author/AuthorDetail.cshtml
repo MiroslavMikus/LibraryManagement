@@ -1,0 +1,10 @@
+﻿@model ICollection<AuthorViewModel>
+
+<a class="btn btn-success mt-5" style="margin: 10px" asp-controller="Author" asp-action="Create">Create new author</a>
+
+<div class="row">
+    @foreach (var Author in Model)
+    {
+        @Html.Partial("AuthorPartial", Author)
+    }
+</div>

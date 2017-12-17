@@ -43,6 +43,29 @@ namespace LibraryManagement.Controllers
             return View(authorsVM);
         }
 
+        public IActionResult AuthorDetail()
+        {
+            var authors = _repository.GetAllWithBooks();
+
+            if (authors?.ToList().Count == 0)
+            {
+                return View("Empty");
+            }
+
+            var authorsVM = new List<AuthorViewModel>();
+
+            foreach (var author in authors)
+            {
+                authorsVM.Add(new AuthorViewModel
+                {
+                    Author = author,
+                    BookCount = author.Books?.Count
+                });
+            }
+
+            return View(authorsVM);
+        }
+
         public IActionResult Detail(int id)
         {
             var author = _repository.GetById(id);
