@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using LibraryManagement.Data.Interfaces;
+using LibraryManagement.Data.Model;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -22,14 +23,18 @@ namespace LibraryManagement.Controllers
 
         public IActionResult List()
         {
-            var lendedBooks = _bookRepository.FindWithAuthorAndBorrower(x => x.BorrowerId != 0);
+            Func<Book, bool> myFilter = x => x.BorrowerId != 0;
 
-            if (lendedBooks == null || lendedBooks.ToList().Count() == 0)
+            // Check the books collection
+            if (!_bookRepository.Any(myFilter))
             {
                 return View("Empty");
             }
 
-            return View(lendedBooks);
+            // load all borrowed books
+            var borrowedBooks = _bookRepository.FindWithAuthorAndBorrower(myFilter);
+
+            return View(borrowedBooks);
         }
 
         public IActionResult ReturnABook(int bookId)

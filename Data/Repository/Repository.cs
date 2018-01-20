@@ -57,5 +57,15 @@ namespace LibraryManagement.Data.Repository
         {
             return _context.Set<T>().Where(predicate).Count();
         }
+
+        public bool Any(Func<T, bool> predicate)
+        {
+            return _context.Set<T>().Any(predicate);
+        }
+
+        public bool Any()
+        {
+            return _context.Set<T>().Any();
+        }
     }
 }

@@ -20,5 +20,9 @@ namespace LibraryManagement.Data.Interfaces
         void Delete(T entity);
 
         int Count(Func<T, bool> predicate);
+
+        bool Any(Func<T, bool> predicate);
+
+        bool Any();
     }
 }

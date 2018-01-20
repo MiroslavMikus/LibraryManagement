@@ -25,14 +25,11 @@ namespace LibraryManagement.Controllers
         [Route("Customer")]
         public IActionResult List()
         {
+            if(!_repository.Any()) return View("Empty");
+
             List<CustomerViewModel> customerVM = new List<CustomerViewModel>();
 
             var customers = _repository.GetAll();
-
-            if(customers.ToList().Count == 0)
-            {
-                return View("Empty");
-            }
 
             foreach (var customer in customers)
             {

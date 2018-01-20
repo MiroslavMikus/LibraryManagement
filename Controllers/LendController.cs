@@ -22,12 +22,16 @@ namespace LibraryManagement.Controllers
 
         public IActionResult List()
         {
-            var availableBooks = _bookRepository.FindWithAuthor(x => x.BorrowerId == 0);
+            Func<Book, bool> myFilter = x => x.BorrowerId == 0;
 
-            if (availableBooks == null || availableBooks.ToList().Count == 0)
+            // check collection
+            if (!_bookRepository.Any(myFilter))
             {
                 return View("Empty");
             }
+
+            // load all available books
+            var availableBooks = _bookRepository.FindWithAuthor(myFilter);
 
             return View(availableBooks);
         }
@@ -50,9 +54,7 @@ namespace LibraryManagement.Controllers
         {
             var book = _bookRepository.GetById(lendVM.Book.BookId);
 
-            var customer = _customerRepository.GetById(lendVM.Book.BorrowerId);
-
-            book.Borrower = customer;
+            book.BorrowerId = lendVM.Book.BorrowerId;
 
             _bookRepository.Update(book);
 

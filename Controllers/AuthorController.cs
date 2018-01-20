@@ -22,12 +22,9 @@ namespace LibraryManagement.Controllers
         [Route("Author")]
         public IActionResult List()
         {
-            var authors = _repository.GetAllWithBooks();
+            if (!_repository.Any()) return View("Empty");
 
-            if (authors?.ToList().Count == 0)
-            {
-                return View("Empty");
-            }
+            var authors = _repository.GetAllWithBooks();
 
             return View(authors);
         }
@@ -59,7 +56,7 @@ namespace LibraryManagement.Controllers
         public IActionResult Update(int id)
         {
             var author = _repository.GetById(id);
-            
+
             if (author == null)
             {
                 return NotFound();
@@ -83,7 +80,7 @@ namespace LibraryManagement.Controllers
 
         public ViewResult Create()
         {
-            return View(new CreateAuthorViewModel {  Referer = Request.Headers["Referer"].ToString() });
+            return View(new CreateAuthorViewModel { Referer = Request.Headers["Referer"].ToString() });
         }
 
         [HttpPost]
